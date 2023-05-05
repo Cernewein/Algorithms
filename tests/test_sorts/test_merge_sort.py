@@ -1,7 +1,7 @@
 from sorts.merge_sort import (
     merge_sort,
     merge,
-    merge_sort_and_count_split_inversions,
+    merge_sort_and_count_inversions,
     merge_and_count_split_inversions,
 )
 
@@ -19,12 +19,12 @@ def test_merge():
 
 def test_merge_sort_and_count_inversion():
     input_list = [207, 101.3, 304, 12.3476, 98.0]
-    sorted_list, number_inversion = merge_sort_and_count_split_inversions(input_list)
+    sorted_list, number_inversion = merge_sort_and_count_inversions(input_list)
     assert sorted_list == [12.3476, 98.0, 101.3, 207, 304]
     assert number_inversion == 3 + 2 + 2
 
 
-def test_merge_and_count_inversion():
+def test_merge_and_count_split_inversion():
     input_list_1 = [1, 3, 5, 6, 7, 10]
     input_list_2 = [2, 4, 8, 9]
     merged_list, number_inversion = merge_and_count_split_inversions(
