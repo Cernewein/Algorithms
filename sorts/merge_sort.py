@@ -7,7 +7,7 @@ def merge(
     """
     Merges two previously sorted lists into a single sorted list.
 
-    Arguments:
+    Args:
         input_list_1: the first sorted list to be merged.
         input_list_2: the second sorted list to be merged.
 
@@ -34,7 +34,7 @@ def merge_sort(input_list: list[Union[float, int]]) -> list[Union[float, int]]:
     Takes a list of numbers as input and returns a sorted list as output.
     The list is sorted based on the MergeSort algorithm.
 
-    Arguments:
+    Args:
         input_list: the list of numbers that needs to be sorted
 
     Returns:
