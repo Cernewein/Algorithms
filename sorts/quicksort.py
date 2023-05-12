@@ -58,7 +58,7 @@ def choose_pivot(
 def partition(
     array: list[Union[int, float]], left: int, right: int, method: str
 ) -> int:
-    """Partition a subset of an array around a random pivot element.
+    """Partition a subset of an array around a pivot element chosen based on the specified method.
     Elements smaller than the pivot will be placed on the left of the pivot.
     Elements greater than the pivot will be placed on the right of the pivot.
     Modifies the array inplace.
@@ -101,7 +101,12 @@ def quicksort(
     right: Union[int, None] = None,
     method: str = "random",
 ):
-    """Sort an array inplace. Uses the randomized quicksort algorithm in order to sort the array.
+    """Sort an array inplace. Uses the quicksort algorithm in order to sort the array and chooses a pivot based on specified method.
+    Allowed methods for pivot selection are :
+        * 'left' : the leftmost element is chosen as pivot.
+        * 'right' : the rightmost element is chosen as pivot.
+        * 'random' : a random element is chosen as pivot
+        * 'median' : the median value of the three elements [left, right, middle] is chosen as pivot.
 
     Args:
         array : The input array that should be sorted
