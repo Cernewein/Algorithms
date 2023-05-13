@@ -39,7 +39,7 @@ def choose_pivot(
         values = []
         values.append(array[left])
         values.append(array[right])
-        middle_index = (left - right) // 2
+        middle_index = (right - left) // 2
         values.append(array[middle_index])
         median = statistics.median(values)
         if array[left] == median:

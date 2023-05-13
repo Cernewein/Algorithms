@@ -10,6 +10,12 @@ def test_merge_sort():
     input_list = [207, 101.3, 304, 12.3476, 98.0]
     assert merge_sort(input_list) == [12.3476, 98.0, 101.3, 207, 304]
 
+    # Edge cases
+    input_list = []
+    assert merge_sort(input_list) == []
+    input_list = [2]
+    assert merge_sort(input_list) == [2]
+
 
 def test_merge():
     input_list_1 = [1, 3, 5, 6, 7, 10]
@@ -22,6 +28,15 @@ def test_merge_sort_and_count_inversion():
     sorted_list, number_inversion = merge_sort_and_count_inversions(input_list)
     assert sorted_list == [12.3476, 98.0, 101.3, 207, 304]
     assert number_inversion == 3 + 2 + 2
+    # Edge cases
+    input_list = []
+    sorted_list, number_inversion = merge_sort_and_count_inversions(input_list)
+    assert sorted_list == []
+    assert number_inversion == 0
+    input_list = [2]
+    sorted_list, number_inversion = merge_sort_and_count_inversions(input_list)
+    assert sorted_list == [2]
+    assert number_inversion == 0
 
 
 def test_merge_and_count_split_inversion():
