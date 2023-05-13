@@ -29,7 +29,7 @@ def merge(
     return merged_list
 
 
-def merge_sort(input_list: list[Union[float, int]]) -> list[Union[float, int]]:
+def mergesort(input_list: list[Union[float, int]]) -> list[Union[float, int]]:
     """
     Takes a list of numbers as input and returns a sorted list as output.
     The list is sorted based on the MergeSort algorithm.
@@ -46,8 +46,8 @@ def merge_sort(input_list: list[Union[float, int]]) -> list[Union[float, int]]:
     else:
         input_list_1 = input_list[0 : list_length // 2]
         input_list_2 = input_list[list_length // 2 :]
-        sorted_input_list_1 = merge_sort(input_list_1)
-        sorted_input_list_2 = merge_sort(input_list_2)
+        sorted_input_list_1 = mergesort(input_list_1)
+        sorted_input_list_2 = mergesort(input_list_2)
         return merge(sorted_input_list_1, sorted_input_list_2)
 
 
@@ -81,7 +81,7 @@ def merge_and_count_split_inversions(
     return merged_list, split_inversions
 
 
-def merge_sort_and_count_inversions(
+def mergesort_and_count_inversions(
     input_list: list[Union[float, int]]
 ) -> tuple[list[Union[float, int]], int]:
     """
@@ -100,10 +100,10 @@ def merge_sort_and_count_inversions(
     else:
         input_list_1 = input_list[0 : list_length // 2]
         input_list_2 = input_list[list_length // 2 :]
-        sorted_input_list_1, left_inversions = merge_sort_and_count_inversions(
+        sorted_input_list_1, left_inversions = mergesort_and_count_inversions(
             input_list_1
         )
-        sorted_input_list_2, right_inversions = merge_sort_and_count_inversions(
+        sorted_input_list_2, right_inversions = mergesort_and_count_inversions(
             input_list_2
         )
         sorted_list, split_inversions = merge_and_count_split_inversions(

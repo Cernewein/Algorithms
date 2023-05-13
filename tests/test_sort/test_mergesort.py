@@ -1,20 +1,20 @@
-from sorts.merge_sort import (
-    merge_sort,
+from sort.mergesort import (
+    mergesort,
     merge,
-    merge_sort_and_count_inversions,
+    mergesort_and_count_inversions,
     merge_and_count_split_inversions,
 )
 
 
 def test_merge_sort():
     input_list = [207, 101.3, 304, 12.3476, 98.0]
-    assert merge_sort(input_list) == [12.3476, 98.0, 101.3, 207, 304]
+    assert mergesort(input_list) == [12.3476, 98.0, 101.3, 207, 304]
 
     # Edge cases
     input_list = []
-    assert merge_sort(input_list) == []
+    assert mergesort(input_list) == []
     input_list = [2]
-    assert merge_sort(input_list) == [2]
+    assert mergesort(input_list) == [2]
 
 
 def test_merge():
@@ -25,16 +25,16 @@ def test_merge():
 
 def test_merge_sort_and_count_inversion():
     input_list = [207, 101.3, 304, 12.3476, 98.0]
-    sorted_list, number_inversion = merge_sort_and_count_inversions(input_list)
+    sorted_list, number_inversion = mergesort_and_count_inversions(input_list)
     assert sorted_list == [12.3476, 98.0, 101.3, 207, 304]
     assert number_inversion == 3 + 2 + 2
     # Edge cases
     input_list = []
-    sorted_list, number_inversion = merge_sort_and_count_inversions(input_list)
+    sorted_list, number_inversion = mergesort_and_count_inversions(input_list)
     assert sorted_list == []
     assert number_inversion == 0
     input_list = [2]
-    sorted_list, number_inversion = merge_sort_and_count_inversions(input_list)
+    sorted_list, number_inversion = mergesort_and_count_inversions(input_list)
     assert sorted_list == [2]
     assert number_inversion == 0
 

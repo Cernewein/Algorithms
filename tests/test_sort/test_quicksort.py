@@ -1,4 +1,4 @@
-from sorts.quicksort import quicksort, partition, choose_pivot
+from sort.quicksort import quicksort, partition, choose_pivot
 import random
 
 
