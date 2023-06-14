@@ -96,11 +96,11 @@ def test_combinations_with_replacement():
         ArgumentError,
         match="Number of element cannot be negative.",
     ):
-        combinations(l, number_elements)
+        combinations_with_replacement(l, number_elements)
 
     # Number of elements cannot be a float
     number_elements = 3.2
     l = [1, 2, 3, 4]
 
     with pytest.raises(ArgumentError, match="Number of elements cannot be a float."):
-        combinations(l, number_elements)
+        combinations_with_replacement(l, number_elements)
