@@ -1,0 +1,2 @@
+def kosaraju():
+    pass
