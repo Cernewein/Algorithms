@@ -79,8 +79,7 @@ class Graph(dict):
     def __eq__(self, other: object) -> bool:
         if type(self) != type(other):
             return False
-        # Order of keys is important. Two graphs can only be the same if the keys are ordered the same way.
-        equal = list(self.adjacency_list.keys()) == list(other.adjacency_list.keys())
+        equal = set(self.adjacency_list.keys()) == set(other.adjacency_list.keys())
         # Two graphs need to have the same starting_node/adjacent nodes list
         equal = equal and self.adjacency_list == other.adjacency_list
         return equal

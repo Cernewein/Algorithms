@@ -19,6 +19,22 @@ def test_graph():
 
 
 @pytest.fixture
+def reverse_test_graph():
+    graph = Graph()
+
+    graph.add_node("v")
+    graph.add_node("w")
+    graph.add_node("s")
+    graph.add_node("t")
+
+    graph.add_edge("t", "v")
+    graph.add_edge("v", "s")
+    graph.add_edge("w", "s")
+    graph.add_edge("t", "w")
+    return graph
+
+
+@pytest.fixture
 def test_graph_2():
     graph = Graph()
 
