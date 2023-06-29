@@ -1,7 +1,3 @@
-from typing import Union
-from errors.errors import ArgumentError
-
-
 def combinations(
     collection: list, number_elements: int, recursion: bool = False
 ) -> list:
@@ -13,16 +9,16 @@ def combinations(
         number_elements : The number of elements in a combination
 
     Raises:
-        ArgumentError: In case of illegal number_elements argument
+        TypeError: In case of illegal number_elements argument
 
     Returns:
         Returns a list containing all possible combinations of number_elements made up of elements in collection
     """
     if number_elements < 0:
-        raise ArgumentError("Number of element cannot be negative.")
+        raise TypeError("Number of element cannot be negative.")
 
     if number_elements % 1 != 0:
-        raise ArgumentError("Number of elements cannot be a float.")
+        raise TypeError("Number of elements cannot be a float.")
 
     if number_elements == 0:
         return [collection]
@@ -30,7 +26,7 @@ def combinations(
         return [[element] for element in collection]
 
     if (number_elements > len(collection)) & (not recursion):
-        raise ArgumentError(
+        raise TypeError(
             f"Number of elements {number_elements} exceeds the length of the list {len(collection)}"
         )
 
@@ -54,16 +50,16 @@ def combinations_with_replacement(collection: list, number_elements: int):
         number_elements : The number of elements in a combination
 
     Raises:
-        ArgumentError: In case of illegal number_elements argument
+        TypeError: In case of illegal number_elements argument
 
     Returns:
         Returns a list containing all possible combinations WITH replacement of number_elements made up of elements in collection
     """
     if number_elements < 0:
-        raise ArgumentError("Number of element cannot be negative.")
+        raise TypeError("Number of element cannot be negative.")
 
     if number_elements % 1 != 0:
-        raise ArgumentError("Number of elements cannot be a float.")
+        raise TypeError("Number of elements cannot be a float.")
 
     if number_elements == 0:
         return [collection]

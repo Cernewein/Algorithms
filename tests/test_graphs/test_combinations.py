@@ -30,7 +30,7 @@ def test_combinations():
     l = [1, 2, 3, 4]
 
     with pytest.raises(
-        ArgumentError,
+        TypeError,
         match=f"Number of elements {number_elements} exceeds the length of the list {len(l)}",
     ):
         combinations(l, number_elements)
@@ -40,7 +40,7 @@ def test_combinations():
     l = [1, 2, 3, 4]
 
     with pytest.raises(
-        ArgumentError,
+        TypeError,
         match="Number of element cannot be negative.",
     ):
         combinations(l, number_elements)
@@ -49,7 +49,7 @@ def test_combinations():
     number_elements = 3.2
     l = [1, 2, 3, 4]
 
-    with pytest.raises(ArgumentError, match="Number of elements cannot be a float."):
+    with pytest.raises(TypeError, match="Number of elements cannot be a float."):
         combinations(l, number_elements)
 
 
@@ -93,7 +93,7 @@ def test_combinations_with_replacement():
     l = [1, 2, 3, 4]
 
     with pytest.raises(
-        ArgumentError,
+        TypeError,
         match="Number of element cannot be negative.",
     ):
         combinations_with_replacement(l, number_elements)
@@ -102,5 +102,5 @@ def test_combinations_with_replacement():
     number_elements = 3.2
     l = [1, 2, 3, 4]
 
-    with pytest.raises(ArgumentError, match="Number of elements cannot be a float."):
+    with pytest.raises(TypeError, match="Number of elements cannot be a float."):
         combinations_with_replacement(l, number_elements)

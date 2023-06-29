@@ -1,4 +1,5 @@
-from graphs.graphs import topological_sort, Graph
+from graphs.datastructures import Graph
+from graphs.topology import topological_sort
 
 
 def find_strongly_connected_components(graph: Graph) -> dict:

@@ -1,5 +1,5 @@
 import pytest
-from graphs.graphs import Graph
+from graphs.datastructures import Graph
 
 
 @pytest.fixture

@@ -1,4 +1,4 @@
-from graphs.graphs import topological_sort, recursive_topological_dfs
+from graphs.topology import topological_sort, recursive_topological_dfs
 
 
 def test_recursive_topological_dfs(test_graph, test_graph_2):
