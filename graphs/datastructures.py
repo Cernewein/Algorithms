@@ -1,8 +1,12 @@
+from typing import Union
+
+
 class Graph(dict):
     """Class that represents a graph using the adjacency list structure"""
 
-    def __init__(self) -> None:
+    def __init__(self, weighted: bool = False) -> None:
         self.adjacency_list = {}
+        self.weighted = weighted
 
     def add_node(self, node: object) -> None:
         """Add a node to the graph.
@@ -12,20 +16,37 @@ class Graph(dict):
         """
         if node in self.adjacency_list.keys():
             raise Exception("Node already exists !")
+        elif self.weighted:
+            self.adjacency_list[node] = {}
         else:
             self.adjacency_list[node] = []
 
-    def add_edge(self, start_node: object, end_node: object) -> None:
+    def add_edge(
+        self,
+        start_node: object,
+        end_node: object,
+        weight: Union[int, float, None] = None,
+    ) -> None:
         """Add a directed edge to the graph. The two nodes provided as argument have to exist. If they don't they need to be added using add_node
 
         Args:
             start_node : Starting node for the directed edge
             end_node : End node for the directed edge
+            weight : Optional value for weighting an edge
         """
         if not start_node in self.adjacency_list.keys():
             raise Exception(f"Start node {start_node} doesn't exist !")
         elif not end_node in self.adjacency_list.keys():
             raise Exception(f"End node {end_node} doesn't exist !")
+        elif weight:
+            weight_type = type(weight)
+            if weight_type != int and weight_type != float:
+                raise TypeError(
+                    f"Please provide a weight that is a number. Current type is {type(weight)}."
+                )
+            if weight < 0:
+                raise TypeError("Only positive edge weigths are allowed.")
+            self.adjacency_list[start_node][end_node] = weight
         else:
             self.adjacency_list[start_node].append(end_node)
 
@@ -62,8 +83,13 @@ class Graph(dict):
         """
         if not node in self.adjacency_list.keys():
             raise Exception(f"Node {node} doesn't exist !")
+        elif self.weighted:
+            return list(self.adjacency_list[node].keys())
         else:
             return self.adjacency_list[node]
+
+    def get_distance(self, start_node, end_node) -> Union[int, float]:
+        return self.adjacency_list[start_node][end_node]
 
     def __repr__(self) -> str:
         class_name = type(self).__name__

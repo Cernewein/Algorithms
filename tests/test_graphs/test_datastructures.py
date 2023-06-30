@@ -17,3 +17,7 @@ def test_MinHeap():
 
     assert heap.keys == [3, 5, 6, 10, 7]
     assert heap.nodes == ["b", "d", "c", "a", "f"]
+
+
+def test_GraphWeighted(test_graph_weighted):
+    assert test_graph_weighted.get_distance("s", "w") == 4
