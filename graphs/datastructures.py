@@ -72,6 +72,14 @@ class Graph(dict):
         """
         return list(self.adjacency_list.keys())
 
+    def get_nodes_and_weights(self) -> list[tuple]:
+        """Returns the list of nodes as a list.
+
+        Returns:
+            list: The nodes of the graph.
+        """
+        return list(self.adjacency_list.items())
+
     def get_adjacent_nodes(self, node: object) -> list:
         """Get adjacent nodes to starting node.
 
@@ -87,6 +95,19 @@ class Graph(dict):
             return list(self.adjacency_list[node].keys())
         else:
             return self.adjacency_list[node]
+
+    def get_adjacent_nodes_and_weights(self, node: object) -> list[tuple]:
+        """Get adjacent nodes and weights on the edges outgoing from the starting node.
+
+        Args:
+            node: The node for which the adjacent nodes should be retrieved.
+
+        Returns:
+            list: The adjacent (nodes, weight) list.
+        """
+        if not self.weighted:
+            raise Exception("Graph is not weighted, cannot return a node,weight pair")
+        return list(self.adjacency_list[node].items())
 
     def get_distance(self, start_node, end_node) -> Union[int, float]:
         return self.adjacency_list[start_node][end_node]
@@ -122,6 +143,7 @@ class MinHeap:
         The last added index is an internal memory used in the extract_min function."""
         self.nodes = []
         self.keys = []
+        self.node_positions = {}
         self.last_added_index = 0
 
     def __get_parent(self, index: int) -> int:
@@ -146,9 +168,14 @@ class MinHeap:
             index1 (int): Index of the first element to be swapped. Index counting starts at 1 in this datastructure.
             index2 (int): Index of the second element to be swapped. Index counting starts at 1 in this datastructure.
         """
+        node1 = self.nodes[index1 - 1]
+        node2 = self.nodes[index2 - 1]
+        self.node_positions[node1] = index2
+        self.node_positions[node2] = index1
+
         self.nodes[index1 - 1], self.nodes[index2 - 1] = (
-            self.nodes[index2 - 1],
-            self.nodes[index1 - 1],
+            node2,
+            node1,
         )
 
         self.keys[index1 - 1], self.keys[index2 - 1] = (
@@ -175,8 +202,8 @@ class MinHeap:
             )
         self.keys.append(key)
 
-    def get_node(self, index: int) -> object:
-        return self.nodes[index - 1]
+    def get_node(self, index: int) -> tuple[object, Union[int, float]]:
+        return self.nodes[index - 1], self.keys[index - 1]
 
     def get_node_key(self, index: int) -> object:
         return self.keys[index - 1]
@@ -188,6 +215,9 @@ class MinHeap:
 
     def get_number_nodes(self) -> int:
         return len(self.nodes)
+
+    def get_node_index(self, node) -> int:
+        return self.node_positions[node]
 
     def insert(self, node: object, key: float) -> None:
         """Insert an element into the heap and rearrange the heap so that the order is maintained correctly.
@@ -204,18 +234,15 @@ class MinHeap:
             node_index = parent_index
             parent_index = self.__get_parent(node_index)
         self.last_added_index = node_index
+        self.node_positions[node] = node_index
 
-    def extract_min(self) -> object:
-        """Extract the element with the minimal key value. After extraction the heap is reordered.
-
-        Returns:
-            object: The element with the minimum key value.
-        """
-        # First extracting the min value and replacing it with the last element that was inserted into the heap
-        min_node = self.get_node(1)
+    def bubble_down(self, index: int) -> None:
+        # Getting last element index and switching places with the node situated at index
         last_added_element, last_added_element_key = self.get_last_added_node()
-        self.nodes[0] = last_added_element
-        self.keys[0] = last_added_element_key
+        if self.get_number_nodes() == 0:
+            return
+        self.nodes[index - 1] = last_added_element
+        self.keys[index - 1] = last_added_element_key
         # Checking which elements are now the children of the last element added
         last_added_element_index = 1
         left_child_index = self.__get_left_child(last_added_element_index)
@@ -238,4 +265,20 @@ class MinHeap:
                 last_added_element_index = right_child_index
             left_child_index = self.__get_left_child(last_added_element_index)
             right_child_index = self.__get_right_child(last_added_element_index)
-        return min_node
+        self.last_added_index = last_added_element_index
+
+    def delete(self, node: object) -> None:
+        index = self.get_node_index(node)
+        self.bubble_down(index)
+
+    def extract_min(self) -> object:
+        """Extract the element with the minimal key value. After extraction the heap is reordered.
+
+        Returns:
+            object: The element with the minimum key value.
+        """
+        # First extracting the min value and then performing bubble down
+        min_node, min_key = self.get_node(1)
+        self.bubble_down(1)
+
+        return min_node, min_key

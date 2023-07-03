@@ -1,4 +1,4 @@
-from graphs.datastructures import Graph, MinHeap
+from graphs.datastructures import MinHeap
 
 
 def test_MinHeap():
@@ -13,10 +13,14 @@ def test_MinHeap():
     assert heap.keys == [2, 3, 6, 10, 5, 7]
     assert heap.nodes == ["e", "b", "c", "a", "d", "f"]
 
-    assert heap.extract_min() == "e"
+    assert heap.extract_min() == ("e", 2)
 
     assert heap.keys == [3, 5, 6, 10, 7]
     assert heap.nodes == ["b", "d", "c", "a", "f"]
+
+    heap.delete("d")
+    assert heap.keys == [3, 7, 6, 10]
+    assert heap.nodes == ["b", "f", "c", "a"]
 
 
 def test_GraphWeighted(test_graph_weighted):
