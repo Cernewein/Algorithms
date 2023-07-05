@@ -1,6 +1,5 @@
 from graphs.combinations import combinations, combinations_with_replacement
 import pytest
-from errors.errors import ArgumentError
 
 
 def test_combinations():

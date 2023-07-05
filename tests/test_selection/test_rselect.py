@@ -1,6 +1,5 @@
 from selection.rselect import rselect
 import pytest
-from errors.errors import ArgumentError
 
 
 def test_rselect():
@@ -19,7 +18,7 @@ def test_rselect():
     i = 10
     n = len(array)
     with pytest.raises(
-        ArgumentError,
+        TypeError,
         match=f"Element rank {i} to be selected is greater than the size {n} of the array.\
             Provide a rank lower or equal to the size of the input.",
     ):

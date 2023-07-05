@@ -1,6 +1,5 @@
 import random
 from typing import Union
-from errors.errors import ArgumentError
 from sort.quicksort import partition
 
 
@@ -15,14 +14,14 @@ def rselect(array: list[Union[int, float]], i: int) -> Union[int, float]:
         i: The element order to be selected.
 
     Raises:
-        ArgumentError: Raised if the element order to be selected is bigger than the length of the list.
+        TypeError: Raised if the element order to be selected is bigger than the length of the list.
 
     Returns:
         The element of the list corresponding to the order i provided.
     """
     n = len(array)
     if i > n:
-        raise ArgumentError(
+        raise TypeError(
             f"Element rank {i} to be selected is greater than the size {n} of the array.\
             Provide a rank lower or equal to the size of the input."
         )
