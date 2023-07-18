@@ -1,7 +1,7 @@
 from typing import Union
 
 
-class Graph(dict):
+class Graph:
     """Class that represents a graph using the adjacency list structure"""
 
     def __init__(self, weighted: bool = False) -> None:
@@ -282,3 +282,47 @@ class MinHeap:
         self.bubble_down(1)
 
         return min_node, min_key
+
+
+class BinaryTreeNode:
+    """A class that is used for building a binary search tree. NB: this tree will most likely not be balanced."""
+
+    def __init__(self, key) -> None:
+        self.key = key
+        self.left_child = None
+        self.right_child = None
+        # Subtree size can be used for the selection method
+        self.subtree_size = 1
+
+    def insert(self, key: Union[int, float]) -> None:
+        """Insert a new node into the binary tree. The tree is recursively traversed until a free spot is found.
+
+        Args:
+            key: The new node key to be inserted
+        """
+        self.subtree_size += 1
+        if self.key > key:
+            if self.left_child is None:
+                self.left_child = BinaryTreeNode(key)
+            else:
+                self.left_child.insert(key)
+        elif self.key < key:
+            if self.right_child is None:
+                self.right_child = BinaryTreeNode(key)
+            else:
+                self.right_child.insert(key)
+
+    def select(self, index: int) -> Union[int, float]:
+        if self.left_child is not None:
+            left_subtree_size = self.left_child.subtree_size
+        else:
+            left_subtree_size = 0
+
+        if left_subtree_size + 1 == index:
+            return self.key
+        elif left_subtree_size >= index:
+            return self.left_child.select(index)
+        elif self.right_child is not None:
+            return self.right_child.select(index - left_subtree_size - 1)
+        else:
+            return None

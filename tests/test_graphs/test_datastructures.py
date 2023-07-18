@@ -1,4 +1,4 @@
-from graphs.datastructures import MinHeap
+from graphs.datastructures import MinHeap, BinaryTreeNode
 
 
 def test_MinHeap():
@@ -25,3 +25,17 @@ def test_MinHeap():
 
 def test_GraphWeighted(test_graph_weighted):
     assert test_graph_weighted.get_distance("s", "w") == 4
+
+
+def test_BinaryTreeNode():
+    root = BinaryTreeNode(10)
+    root.insert(3)
+    root.insert(4)
+    root.insert(15)
+    root.insert(12)
+    root.insert(7)
+    root.insert(11)
+
+    assert root.select(1) == 3
+    assert root.select(7) == 15
+    assert root.select(5) == 11
