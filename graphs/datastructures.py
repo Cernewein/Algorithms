@@ -1,4 +1,4 @@
-from typing import Union
+from typing import Union, Hashable
 
 
 class Graph:
@@ -237,35 +237,38 @@ class MinHeap:
         self.node_positions[node] = node_index
 
     def bubble_down(self, index: int) -> None:
-        # Getting last element index and switching places with the node situated at index
-        last_added_element, last_added_element_key = self.get_last_added_node()
+        # Getting last element index and switching places with the node situated at index provided as input value
         if self.get_number_nodes() == 0:
             return
-        self.nodes[index - 1] = last_added_element
-        self.keys[index - 1] = last_added_element_key
-        # Checking which elements are now the children of the last element added
-        last_added_element_index = 1
-        left_child_index = self.__get_left_child(last_added_element_index)
-        right_child_index = self.__get_right_child(last_added_element_index)
+        if self.get_number_nodes() == 1:
+            self.nodes.pop()
+            self.keys.pop()
+            return
+        last_node = self.nodes.pop()
+        last_key = self.keys.pop()
+        self.nodes[index - 1] = last_node
+        self.keys[index - 1] = last_key
+
+        # Checking which elements are now the children of the last element in the heap
+        last_index = 1
+        left_child_index = self.__get_left_child(last_index)
+        right_child_index = self.__get_right_child(last_index)
         # If the children have smaller keys, the positions have to be exchanged.
-        while self.get_node_key(last_added_element_index) > self.get_node_key(
+        while self.get_node_key(last_index) > self.get_node_key(
             left_child_index
-        ) or self.get_node_key(last_added_element_index) > self.get_node_key(
-            right_child_index
-        ):
+        ) or self.get_node_key(last_index) > self.get_node_key(right_child_index):
             # While a children has a lower key value than the last inserted value, the heap is rearranged using bubble down.
             # The swap takes place with the child having the lower key value.
             if self.get_node_key(left_child_index) < self.get_node_key(
                 right_child_index
             ):
-                self.__swap(last_added_element_index, left_child_index)
-                last_added_element_index = left_child_index
+                self.__swap(last_index, left_child_index)
+                last_index = left_child_index
             else:
-                self.__swap(last_added_element_index, right_child_index)
-                last_added_element_index = right_child_index
-            left_child_index = self.__get_left_child(last_added_element_index)
-            right_child_index = self.__get_right_child(last_added_element_index)
-        self.last_added_index = last_added_element_index
+                self.__swap(last_index, right_child_index)
+                last_index = right_child_index
+            left_child_index = self.__get_left_child(last_index)
+            right_child_index = self.__get_right_child(last_index)
 
     def delete(self, node: object) -> None:
         index = self.get_node_index(node)
@@ -279,9 +282,13 @@ class MinHeap:
         """
         # First extracting the min value and then performing bubble down
         min_node, min_key = self.get_node(1)
+
         self.bubble_down(1)
 
         return min_node, min_key
+
+    def __len__(self) -> int:
+        return len(self.nodes)
 
 
 class BinaryTreeNode:
@@ -326,3 +333,37 @@ class BinaryTreeNode:
             return self.right_child.select(index - left_subtree_size - 1)
         else:
             return None
+
+
+class SigmaTreeNode:
+    """A class representing a node in an alphabet sigma tree. This class can be used to represent a huffman encoding of an alphabet.
+    Each SigmaTreeNode has a left/right child (it therfore is structured as a binary tree), a symbol and a frequency.
+    """
+
+    def __init__(self, symbol: Hashable, frequency: int | float) -> None:
+        """Initialize a node.
+
+        Args:
+            symbol (Hashable): The alphabet symbol of the node
+            frequency (int | float): The associated symbol frequency
+        """
+        self.symbol = symbol
+        self.frequency = frequency
+        self.left_child = None
+        self.right_child = None
+
+    def __eq__(self, other) -> bool:
+        return (self.symbol, self.frequency, self.left_child, self.right_child) == (
+            other.symbol,
+            other.frequency,
+            other.left_child,
+            other.right_child,
+        )
+
+    def __repr__(self) -> str:
+        left_child_string = self.left_child.symbol if self.left_child else ""
+        right_child_string = self.right_child.symbol if self.right_child else ""
+        return f"Symbol : {self.symbol}\n Frequency : {self.frequency} \n Left child : {left_child_string} \n Right child : {right_child_string}"
+
+    def __hash__(self) -> int:
+        return hash(self.symbol)
