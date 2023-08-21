@@ -1,12 +1,12 @@
-from graphs.datastructures import Graph
+from graphs.datastructures import DirectedGraph
 from graphs.topology import topological_sort
 
 
-def find_strongly_connected_components(graph: Graph) -> dict:
+def find_strongly_connected_components(graph: DirectedGraph) -> dict:
     """Find the strongly connected components of a graph using the kosaraju algorithm with recursive DFS.
 
     Args:
-        graph (Graph): The graph for which the components should be found
+        graph (DirectedGraph): The graph for which the components should be found
 
     Returns:
         dict: A dictionnary containing the nodes as keys and the strongly connected component number as value. If two nodes have the same value they are in the same SCC
@@ -29,7 +29,7 @@ def find_strongly_connected_components(graph: Graph) -> dict:
 
 
 def strongly_connected_component_dfs(
-    graph: Graph,
+    graph: DirectedGraph,
     start: object,
     number_scc: int,
     strongly_connected_components: dict,
@@ -39,7 +39,7 @@ def strongly_connected_component_dfs(
     Uses recursive DFS.
 
     Args:
-        graph (Graph): The graph for which the SCCs should be found.
+        graph (DirectedGraph): The graph for which the SCCs should be found.
         start (object): The starting node for exploring the current SCC.
         number_scc (int): The current SCC number. Is used for bookkeeping purposes.
         strongly_connected_components (dict): The strongly connected components dictionnary that is populated with the SCCs that have already been found. Is used for bookkeeping purposes.
@@ -63,16 +63,16 @@ def strongly_connected_component_dfs(
     return strongly_connected_components, explored_nodes
 
 
-def reverse_graph(graph: Graph) -> Graph:
+def reverse_graph(graph: DirectedGraph) -> DirectedGraph:
     """Reverse a directed input graph. The edges incoming edges are transformed into outgoing edges and vice-versa.
 
     Args:
-        graph (Graph): The graph that should be reversed.
+        graph (DirectedGraph): The graph that should be reversed.
 
     Returns:
         Graph: A reversed version of the input graph.
     """
-    reverse_graph = Graph()
+    reverse_graph = DirectedGraph()
     added_nodes = set()
     for starting_node in graph.get_nodes():
         if starting_node not in added_nodes:

@@ -34,7 +34,7 @@ The project is subdivided into different folders containing a number of algorith
 7. [Two sum](./graphs/two_sum.py)
     * An algorithm using a lookup table in order to find if there are two numbers in a list that can be added to get a provided input
 
-### Greedy
+### Greedy algorithms
 1. [Huffman encoding](./greedy/huffman.py)
     * An implementation for the huffman encoding algorithm
 

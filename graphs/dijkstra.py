@@ -1,18 +1,18 @@
-from graphs.datastructures import Graph, MinHeap
+from graphs.datastructures import UndirectedGraph, MinHeap
 
 
-def dijkstra(graph: Graph, starting_node: object) -> dict:
+def dijkstra(graph: UndirectedGraph, starting_node: object) -> dict:
     """Find the single source shortest path from a starting node to all other nodes in the graph
 
     Args:
-        graph (Graph): The graph on which to compute the shortest paths
+        graph (UndirectedGraph): The graph on which to compute the shortest paths
         starting_node (object): The starting node from which to computed the shortest paths
 
     Returns:
         dict: A dictionary containing all the graph nodes as keys with associated distances from the starting node
     """
-    if type(graph) != Graph:
-        raise TypeError("Please provide an input graph of type Graph")
+    if type(graph) != UndirectedGraph:
+        raise TypeError("Please provide an input graph of type UndirectedGraph")
     if starting_node not in graph.get_nodes():
         raise TypeError("Starting node not in graph !")
 
@@ -54,17 +54,17 @@ def dijkstra(graph: Graph, starting_node: object) -> dict:
     return distances
 
 
-def dijkstra_heap(graph: Graph, starting_node: object) -> dict:
+def dijkstra_heap(graph: UndirectedGraph, starting_node: object) -> dict:
     """Find the single source shortest path from a starting node to all other nodes in the graph. Uses the dijkstra algorithm with a Heap datastructure for better performance.
 
     Args:
-        graph (Graph): The graph on which to compute the shortest paths
+        graph (UndirectedGraph): The graph on which to compute the shortest paths
         starting_node (object): The starting node from which to computed the shortest paths
 
     Returns:
         dict: A dictionary containing all the graph nodes as keys with associated distances from the starting node
     """
-    if type(graph) != Graph:
+    if type(graph) != UndirectedGraph:
         raise TypeError("Please provide an input graph of type Graph")
     if starting_node not in graph.get_nodes():
         raise TypeError("Starting node not in graph !")

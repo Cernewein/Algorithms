@@ -1,7 +1,7 @@
-from graphs.datastructures import Graph
+from graphs.datastructures import DirectedGraph
 
 
-def topological_sort(graph: Graph) -> list:
+def topological_sort(graph: DirectedGraph) -> list:
     """Topologically sort a graph. This topological sort uses recursive DFS.
 
     Args:
@@ -22,7 +22,7 @@ def topological_sort(graph: Graph) -> list:
 
 
 def recursive_topological_dfs(
-    graph: Graph, start: object, explored_nodes: list, ordered_nodes: list
+    graph: DirectedGraph, start: object, explored_nodes: list, ordered_nodes: list
 ) -> tuple[list, list]:
     """Helper function for the topological sort of a graph. Handles the recursive DFS part.
     Orders nodes starting from a specific start node and adds these to the preexisting ordered nodes list.

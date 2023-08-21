@@ -1,10 +1,10 @@
 import pytest
-from graphs.datastructures import Graph
+from graphs.datastructures import UndirectedGraph, DirectedGraph
 
 
 @pytest.fixture
 def test_graph():
-    graph = Graph()
+    graph = DirectedGraph()
 
     graph.add_node("v")
     graph.add_node("w")
@@ -20,7 +20,7 @@ def test_graph():
 
 @pytest.fixture
 def reverse_test_graph():
-    graph = Graph()
+    graph = DirectedGraph()
 
     graph.add_node("v")
     graph.add_node("w")
@@ -36,7 +36,7 @@ def reverse_test_graph():
 
 @pytest.fixture
 def test_graph_2():
-    graph = Graph()
+    graph = DirectedGraph()
 
     graph.add_node(1)
     graph.add_node(2)
@@ -57,7 +57,7 @@ def test_graph_2():
 
 @pytest.fixture
 def test_graph_weighted():
-    graph = Graph(weighted=True)
+    graph = UndirectedGraph(weighted=True)
 
     graph.add_node("s")
     graph.add_node("v")
@@ -75,7 +75,7 @@ def test_graph_weighted():
 
 @pytest.fixture
 def test_graph_weighted_2():
-    graph = Graph(weighted=True)
+    graph = UndirectedGraph(weighted=True)
 
     graph.add_node(1)
     graph.add_node(2)
