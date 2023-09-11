@@ -1,5 +1,6 @@
 from graphs.datastructures import UndirectedGraph, MinHeap
 import random
+import copy
 
 
 def prim(input_graph: UndirectedGraph) -> UndirectedGraph:
@@ -100,8 +101,8 @@ def prim_heap(input_graph: UndirectedGraph) -> UndirectedGraph:
     return minimum_spanning_tree
 
 
-def kruskal():
-    """Compute a minimum spanning tree thanks to Kruskal's algorithm.
+def kruskal(input_graph: UndirectedGraph) -> UndirectedGraph:
+    """Compute a minimum spanning tree using Kruskal's algorithm.
 
     Args:
         input_graph (UndirectedGraph): The input graph for which a minimum spanning tree should be computed
@@ -109,4 +110,39 @@ def kruskal():
     Returns:
         UndirectedGraph: The minimum spanning tree.
     """
-    pass
+    minimum_spanning_tree = UndirectedGraph(weighted=True)
+    nodes_in_mst = set()
+    shortest_edges = MinHeap()
+    # Build the min heap containing all edges ordered by increasing weight.
+    # Runs in E x V time.
+    for node in input_graph.get_nodes():
+        for edge in input_graph.get_adjacent_nodes_and_weights(node):
+            shortest_edges.add_node((node, edge[0]), edge[1])
+
+    # Iterate over edges with increasing weight
+    for _ in range(shortest_edges.get_number_nodes()):
+        shortest_edge, weight = shortest_edges.extract_min()
+
+        # Create a temporary tree based on the MST to check whether the added edge creates a cycle
+        temporary_mst = copy.deepcopy(minimum_spanning_tree)
+
+        if shortest_edge[0] not in nodes_in_mst:
+            temporary_mst.add_node(shortest_edge[0])
+        if shortest_edge[1] not in nodes_in_mst:
+            temporary_mst.add_node(shortest_edge[1])
+
+        temporary_mst.add_edge(shortest_edge[0], shortest_edge[1], weight)
+
+        # If the added edge doesn't create a cycle it can be added to the MST
+        if not temporary_mst.is_cyclical():
+            if shortest_edge[0] not in nodes_in_mst:
+                minimum_spanning_tree.add_node(shortest_edge[0])
+                nodes_in_mst.add(shortest_edge[0])
+            if shortest_edge[1] not in nodes_in_mst:
+                minimum_spanning_tree.add_node(shortest_edge[1])
+                nodes_in_mst.add(shortest_edge[1])
+
+            minimum_spanning_tree.add_edge(shortest_edge[0], shortest_edge[1], weight)
+        # Cleaning up
+        del temporary_mst
+    return minimum_spanning_tree

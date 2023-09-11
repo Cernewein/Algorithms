@@ -1,4 +1,9 @@
-from graphs.datastructures import MinHeap, BinaryTreeNode
+from graphs.datastructures import (
+    MinHeap,
+    BinaryTreeNode,
+    UndirectedGraph,
+    DirectedGraph,
+)
 
 
 def test_MinHeap():
@@ -25,6 +30,56 @@ def test_MinHeap():
 
 def test_GraphWeighted(test_graph_weighted):
     assert test_graph_weighted.get_distance("s", "w") == 4
+
+
+def test_DirectedGraphCycle():
+    graph = DirectedGraph()
+    graph.add_node(1)
+    graph.add_node(2)
+    graph.add_node(3)
+
+    graph.add_edge(1, 2)
+    graph.add_edge(2, 3)
+    graph.add_edge(3, 1)
+
+    assert graph.is_cyclical() == True
+
+
+def test_DirectedGraphNoCycle():
+    graph = DirectedGraph()
+    graph.add_node(1)
+    graph.add_node(2)
+    graph.add_node(3)
+
+    graph.add_edge(1, 2)
+    graph.add_edge(2, 3)
+
+    assert graph.is_cyclical() == False
+
+
+def test_UndirectedGraphCycle():
+    graph = UndirectedGraph()
+    graph.add_node(1)
+    graph.add_node(2)
+    graph.add_node(3)
+
+    graph.add_edge(1, 2)
+    graph.add_edge(2, 3)
+    graph.add_edge(3, 1)
+
+    assert graph.is_cyclical() == True
+
+
+def test_UndirectedGraphNoCycle():
+    graph = UndirectedGraph()
+    graph.add_node(1)
+    graph.add_node(2)
+    graph.add_node(3)
+
+    graph.add_edge(1, 2)
+    graph.add_edge(2, 3)
+
+    assert graph.is_cyclical() == False
 
 
 def test_BinaryTreeNode():

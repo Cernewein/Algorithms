@@ -112,6 +112,38 @@ class DirectedGraph:
     def get_distance(self, start_node, end_node) -> Union[int, float]:
         return self.adjacency_list[start_node][end_node]
 
+    def visit(self, start_node: object, path: set, visited: set) -> bool:
+        """Visit nodes from a starting node using DFS.Utility function for the is_cyclical method. Returns true if a node is visited and was already marked as visited.
+
+
+        Args:
+            start_node (object): The starting node for DFS.
+            path (set): Helper variable for keeping track of current path explored by DFS.
+            visited (set): Helper variable for keeping track of already visited nodes so a node is only visited once.
+
+        Returns:
+            bool: Whether or not a node has been visited and was already marked as visited.
+        """
+        if start_node in visited:
+            return False
+        visited.add(start_node)
+        path.add(start_node)
+        for neighbour in self.get_adjacent_nodes(start_node):
+            if neighbour in path or self.visit(neighbour, path, visited):
+                return True
+        path.remove(start_node)
+        return False
+
+    def is_cyclical(self) -> bool:
+        """Check if graph contains a cycle using DFS.
+
+        Returns:
+            bool: Wheter or not the graph contains a cycle
+        """
+        path = set()
+        visited = set()
+        return any(self.visit(node, path, visited) for node in self.get_nodes())
+
     def __repr__(self) -> str:
         class_name = type(self).__name__
         return f"{class_name}()"
@@ -247,6 +279,42 @@ class UndirectedGraph:
 
     def get_distance(self, start_node, end_node) -> Union[int, float]:
         return self.adjacency_list[start_node][end_node]
+
+    def visit(
+        self, start_node: object, parent_node: object | None, path: set, visited: set
+    ) -> bool:
+        """Visit nodes from a starting node using DFS.Utility function for the is_cyclical method. Returns true if a node is visited and was already marked as visited.
+
+
+        Args:
+            start_node (object): The starting node for DFS.
+            path (set): Helper variable for keeping track of current path explored by DFS.
+            visited (set): Helper variable for keeping track of already visited nodes so a node is only visited once.
+
+        Returns:
+            bool: Whether or not a node has been visited and was already marked as visited.
+        """
+        if start_node in visited:
+            return False
+        visited.add(start_node)
+        path.add(start_node)
+        for neighbour in self.get_adjacent_nodes(start_node):
+            if neighbour == parent_node:
+                pass
+            elif neighbour in path or self.visit(neighbour, start_node, path, visited):
+                return True
+        path.remove(start_node)
+        return False
+
+    def is_cyclical(self) -> bool:
+        """Check if graph contains a cycle using DFS.
+
+        Returns:
+            bool: Wheter or not the graph contains a cycle
+        """
+        path = set()
+        visited = set()
+        return any(self.visit(node, None, path, visited) for node in self.get_nodes())
 
     def __repr__(self) -> str:
         class_name = type(self).__name__
