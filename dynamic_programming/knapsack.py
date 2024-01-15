@@ -109,9 +109,3 @@ def object_should_be_included(
         + object_value
         > solution_array[object_index - 1][remaining_capacity]
     )
-
-
-values = [3, 2, 4, 4]
-weights = [4, 3, 2, 3]
-capacity = 6
-reconstruct_knapsack(values, weights, capacity)
