@@ -90,3 +90,57 @@ def test_graph_weighted_2():
     graph.add_edge(3, 5, 4)
 
     return graph
+
+@pytest.fixture
+def test_directed_graph_weighted():
+    graph = DirectedGraph(weighted=True)
+
+    graph.add_node("s")
+    graph.add_node("v")
+    graph.add_node("w")
+    graph.add_node("t")
+
+    graph.add_edge("s", "v", 1)
+    graph.add_edge("s", "w", 4)
+    graph.add_edge("v", "w", 2)
+    graph.add_edge("t", "t", 6)
+    graph.add_edge("w", "t", 3)
+
+    return graph
+
+
+@pytest.fixture
+def test_directed_graph_weighted_2():
+    graph = DirectedGraph(weighted=True)
+
+    graph.add_node(1)
+    graph.add_node(2)
+    graph.add_node(3)
+    graph.add_node(4)
+    graph.add_node(5)
+
+    graph.add_edge(1, 2, 2)
+    graph.add_edge(2, 4, 3)
+    graph.add_edge(2, 3, 6)
+    graph.add_edge(4, 3, 2)
+    graph.add_edge(3, 5, 4)
+
+    return graph
+
+@pytest.fixture
+def test_negative_cycle_graph():
+    graph = DirectedGraph(weighted=True)
+
+    graph.add_node("s")
+    graph.add_node("v")
+    graph.add_node("w")
+    graph.add_node("x")
+    graph.add_node("u")
+
+    graph.add_edge("s", "v", 10)
+    graph.add_edge("v", "u", -4)
+    graph.add_edge("u", "w", 3)
+    graph.add_edge("w", "x", -5)
+    graph.add_edge("x", "v", 4)
+
+    return graph

@@ -40,6 +40,8 @@ def dijkstra(graph: UndirectedGraph, starting_node: object) -> dict:
             distance = distances[start_node] + graph.get_distance(
                 start_node, adjacent_node
             )
+            if distance < 0:
+                raise TypeError("Only non-negative edge weigths are allowed.")
             if distance < min_distance:
                 min_distance = distance
                 closest_node = adjacent_node

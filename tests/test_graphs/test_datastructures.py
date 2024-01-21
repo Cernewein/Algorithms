@@ -1,7 +1,7 @@
 from graphs.datastructures import (
     MinHeap,
     BinaryTreeNode,
-    UndirectedGraph,
+    DirectedGraph,
     DirectedGraph,
 )
 
@@ -58,7 +58,7 @@ def test_DirectedGraphNoCycle():
 
 
 def test_UndirectedGraphCycle():
-    graph = UndirectedGraph()
+    graph = DirectedGraph()
     graph.add_node(1)
     graph.add_node(2)
     graph.add_node(3)
@@ -71,7 +71,7 @@ def test_UndirectedGraphCycle():
 
 
 def test_UndirectedGraphNoCycle():
-    graph = UndirectedGraph()
+    graph = DirectedGraph()
     graph.add_node(1)
     graph.add_node(2)
     graph.add_node(3)

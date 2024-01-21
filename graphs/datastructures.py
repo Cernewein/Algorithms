@@ -1,4 +1,5 @@
 from typing import Union, Hashable
+import numpy as np
 
 
 class DirectedGraph:
@@ -44,8 +45,6 @@ class DirectedGraph:
                 raise TypeError(
                     f"Please provide a weight that is a number. Current type is {type(weight)}."
                 )
-            if weight < 0:
-                raise TypeError("Only positive edge weigths are allowed.")
             self.adjacency_list[start_node][end_node] = weight
         else:
             self.adjacency_list[start_node].append(end_node)
@@ -79,6 +78,24 @@ class DirectedGraph:
             list: The nodes of the graph.
         """
         return list(self.adjacency_list.items())
+    
+    def get_incoming_nodes(self, node: object) -> list:
+        """Get incoming nodes to provided node.
+
+        Args:
+            node: The node for which the incoming nodes should be retrieved.
+
+        Returns:
+            list: The incoming nodes list.
+        """
+        if not node in self.adjacency_list.keys():
+            raise Exception(f"Node {node} doesn't exist !")
+        elif self.weighted:
+            incoming_nodes = [k for k, adjacent_nodes in self.adjacency_list.items() if node in adjacent_nodes.keys()]
+            return incoming_nodes
+        else:
+            incoming_nodes = [k for k, adjacent_nodes in self.adjacency_list.items() if node in adjacent_nodes]
+            return incoming_nodes
 
     def get_adjacent_nodes(self, node: object) -> list:
         """Get adjacent nodes to starting node.
@@ -110,7 +127,16 @@ class DirectedGraph:
         return list(self.adjacency_list[node].items())
 
     def get_distance(self, start_node, end_node) -> Union[int, float]:
-        return self.adjacency_list[start_node][end_node]
+        if self.weighted:
+            try:
+                return self.adjacency_list[start_node][end_node]
+            except IndexError:
+                return np.inf
+        else:
+            if end_node in self.adjacency_list[start_node]:
+                return 1
+            else:
+                return np.inf
 
     def visit(self, start_node: object, path: set, visited: set) -> bool:
         """Visit nodes from a starting node using DFS.Utility function for the is_cyclical method. Returns true if a node is visited and was already marked as visited.
