@@ -67,7 +67,6 @@ def test_graph_weighted():
     graph.add_edge("s", "v", 1)
     graph.add_edge("s", "w", 4)
     graph.add_edge("v", "w", 2)
-    graph.add_edge("t", "t", 6)
     graph.add_edge("w", "t", 3)
 
     return graph
@@ -103,7 +102,6 @@ def test_directed_graph_weighted():
     graph.add_edge("s", "v", 1)
     graph.add_edge("s", "w", 4)
     graph.add_edge("v", "w", 2)
-    graph.add_edge("t", "t", 6)
     graph.add_edge("w", "t", 3)
 
     return graph

@@ -132,6 +132,8 @@ class DirectedGraph:
                 return self.adjacency_list[start_node][end_node]
             except IndexError:
                 return np.inf
+            except KeyError:
+                return np.inf
         else:
             if end_node in self.adjacency_list[start_node]:
                 return 1
