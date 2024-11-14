@@ -78,7 +78,7 @@ class DirectedGraph:
             list: The nodes of the graph.
         """
         return list(self.adjacency_list.items())
-    
+
     def get_incoming_nodes(self, node: object) -> list:
         """Get incoming nodes to provided node.
 
@@ -91,10 +91,18 @@ class DirectedGraph:
         if not node in self.adjacency_list.keys():
             raise Exception(f"Node {node} doesn't exist !")
         elif self.weighted:
-            incoming_nodes = [k for k, adjacent_nodes in self.adjacency_list.items() if node in adjacent_nodes.keys()]
+            incoming_nodes = [
+                k
+                for k, adjacent_nodes in self.adjacency_list.items()
+                if node in adjacent_nodes.keys()
+            ]
             return incoming_nodes
         else:
-            incoming_nodes = [k for k, adjacent_nodes in self.adjacency_list.items() if node in adjacent_nodes]
+            incoming_nodes = [
+                k
+                for k, adjacent_nodes in self.adjacency_list.items()
+                if node in adjacent_nodes
+            ]
             return incoming_nodes
 
     def get_adjacent_nodes(self, node: object) -> list:
