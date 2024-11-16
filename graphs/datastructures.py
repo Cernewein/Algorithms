@@ -351,6 +351,48 @@ class UndirectedGraph:
         path = set()
         visited = set()
         return any(self.visit(node, None, path, visited) for node in self.get_nodes())
+    
+    def is_tour(self) -> bool:
+        """
+        Check if the current graph is a tour : it visits all nodes, 
+        and all nodes are only connected to two other nodes.
+        """
+        visited = set()
+        # Arbitrarly choose starting node
+        starting_node = self.get_nodes()[0]
+        current_node = starting_node
+
+        if len(self.get_adjacent_nodes(starting_node)) != 2:
+            # If the number of reachable neighbors is different from two,
+            # the graph cannot be a tour
+            return False
+        
+        # Arbitrarly choose next node
+        next_node = self.get_adjacent_nodes(starting_node)[0]
+        has_next_node = True
+
+        visited.add(current_node)
+
+        while has_next_node:
+            current_node = next_node
+            visited.add(current_node)
+            if len(self.get_adjacent_nodes(current_node)) != 2:
+                # If the number of reachable neighbors is different from two,
+                # the graph cannot be a tour
+                return False
+            
+            has_next_node = False
+            for neighbor in self.get_adjacent_nodes(current_node):
+                if neighbor not in visited:
+                    next_node = neighbor
+                    has_next_node = True
+                    
+
+        if visited == set(self.get_nodes()):
+            return True
+        
+        return False
+
 
     def __repr__(self) -> str:
         class_name = type(self).__name__

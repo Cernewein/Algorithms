@@ -4,6 +4,18 @@ from graphs.datastructures import UndirectedGraph
 def nearest_neighbor_tsp(
     locations_graph: UndirectedGraph, starting_node: object
 ) -> UndirectedGraph:
+    """
+    Compute a TSP tour using a greedy approach. 
+    It starts at a a given node and computes a tour by iteratively adding the closest next node to visit.
+    The algorithm stops once it returned to the starting node.
+    
+    Args:
+        locations_graph: The graph representing all distances between points
+        starting_node: The node where the tour should initially start
+
+    Returns:
+        UndirectedGraph: The computed TSP tour
+    """
     tsp_tour = UndirectedGraph(weighted=True)
     tsp_tour.add_node(starting_node)
     adjacent_nodes = locations_graph.get_adjacent_nodes_and_weights(starting_node)
